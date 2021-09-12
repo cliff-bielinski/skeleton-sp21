@@ -5,7 +5,7 @@ import java.util.Observable;
 
 
 /** The state of a game of 2048.
- *  @author TODO: YOUR NAME HERE
+ *  @author Clifford Bielinski
  */
 public class Model extends Observable {
     /** Current contents of the board. */
@@ -108,8 +108,18 @@ public class Model extends Observable {
      * */
     public boolean tilt(Side side) {
         boolean changed;
+        boolean temp;
+        temp = false;
         changed = false;
 
+        this.board.setViewingPerspective(side);
+        for (int col = 0; col < this.board.size()-1; col++){
+            temp = mergeColumn(col);
+            System.out.println(temp);
+            if (temp){
+                changed = true;
+            }
+        }
         // TODO: Modify this.board (and perhaps this.score) to account
         // for the tilt to the Side SIDE. If the board changed, set the
         // changed local variable to true.
@@ -119,6 +129,37 @@ public class Model extends Observable {
             setChanged();
         }
         return changed;
+    }
+
+    private boolean mergeColumn(int col) {
+        Tile current;
+        Tile target;
+        boolean moved = false;
+
+        int p1 = this.board.size()-1;
+        int p2 = this.board.size()-2;
+
+        while (p2 >= 0){
+            current = this.board.tile(col, p1);
+            target = this.board.tile(col, p2);
+
+            if (current == null || target == null) {
+                if (target != null) {
+                    this.board.move(col, p1, target);
+                    moved = true;
+                }
+                p2--;
+            } else {
+                if (current.value() == target.value()){
+                    this.score += current.value() * 2;
+                    this.board.move(col, p1, target);
+                    moved = true;
+                }
+                p2--;
+                p1--;
+            }
+        }
+        return moved;
     }
 
     /** Checks if the game is over and sets the gameOver variable
@@ -137,7 +178,13 @@ public class Model extends Observable {
      *  Empty spaces are stored as null.
      * */
     public static boolean emptySpaceExists(Board b) {
-        // TODO: Fill in this function.
+        for (int i = 0; i < b.size(); i++){
+            for (int j = 0; j < b.size(); j++){
+                if (b.tile(i, j) == null){
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
@@ -147,7 +194,15 @@ public class Model extends Observable {
      * given a Tile object t, we get its value with t.value().
      */
     public static boolean maxTileExists(Board b) {
-        // TODO: Fill in this function.
+        Tile temp;
+        for (int i = 0; i < b.size(); i++) {
+            for (int j = 0; j < b.size(); j++) {
+                temp = b.tile(i, j);
+                if (temp != null && temp.value() == MAX_PIECE) {
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
@@ -158,7 +213,26 @@ public class Model extends Observable {
      * 2. There are two adjacent tiles with the same value.
      */
     public static boolean atLeastOneMoveExists(Board b) {
-        // TODO: Fill in this function.
+        if (emptySpaceExists(b)) {
+            return true;
+        } else{
+            for (int i = 0; i < b.size(); i++) {
+                for (int j = 0; j < b.size(); j++) {
+                    Tile temp = b.tile(i, j);
+                    int value = temp.value();
+
+                    if (i + 1 < b.size() && value == b.tile(i+1,j).value()){
+                        return true;
+                    }else if (j + 1 < b.size() && value == b.tile(i,j+1).value()){
+                        return true;
+                    }else if (i - 1 >= 0 && value == b.tile(i-1,j).value()){
+                        return true;
+                    }else if (j - 1 >= 0 && value == b.tile(i,j-1).value()){
+                        return true;
+                    }
+                }
+            }
+        }
         return false;
     }
 
