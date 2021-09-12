@@ -113,9 +113,8 @@ public class Model extends Observable {
         changed = false;
 
         this.board.setViewingPerspective(side);
-        for (int col = 0; col < this.board.size()-1; col++){
+        for (int col = 0; col < this.board.size(); col++){
             temp = mergeColumn(col);
-            System.out.println(temp);
             if (temp){
                 changed = true;
             }
