@@ -37,6 +37,18 @@ public class ArrayDeque <T>{
         size += 1;
     }
 
+    /** removes the first element from the ArrayDeque and returns it*/
+    public T removeFirst(){
+        int firstIndex = (nextFirst + 1) % items.length;
+        T value = items[firstIndex];
+        size -= 1;
+        nextFirst = firstIndex;
+        if (items.length > 16 && size < (items.length / 4)){
+            // DOWNSIZE CALL HERE downsize();
+        }
+        return value;
+    }
+
     /** adds an element to the end of the ArrayDeque */
     public void addLast(T item){
         if (size == items.length){
@@ -45,6 +57,18 @@ public class ArrayDeque <T>{
         items[nextLast] = item;
         nextLast = (nextLast + 1) % items.length;
         size += 1;
+    }
+
+    /** removes an element at the end of the ArrayDeque */
+    public T removeLast(){
+        int lastIndex = (nextLast - 1) % items.length;
+        T value = items[lastIndex];
+        size -= 1;
+        nextLast = lastIndex;
+        if (items.length > 16 && size < (items.length / 4)){
+            // DOWNSIZE CALL HERE downsize();
+        }
+        return value;
     }
 
     /** prints out the elements in the ArrayDeque */

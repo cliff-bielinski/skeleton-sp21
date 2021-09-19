@@ -34,17 +34,16 @@ public class ArrayDequeTest {
     /** Adds an item, then removes an item, and ensures that dll is empty afterwards. */
     public void addRemoveTest() {
 
-        System.out.println("Make sure to uncomment the lines below (and delete this print statement).");
-        LinkedListDeque<Integer> lld1 = new LinkedListDeque<Integer>();
+        ArrayDeque<Integer> ad1 = new ArrayDeque<>();
         // should be empty
-        assertTrue("lld1 should be empty upon initialization", lld1.isEmpty());
+        assertTrue("ad1 should be empty upon initialization", ad1.isEmpty());
 
-        lld1.addFirst(10);
+        ad1.addFirst(10);
         // should not be empty
-        assertFalse("lld1 should contain 1 item", lld1.isEmpty());
+        assertFalse("ad1 should contain 1 item", ad1.isEmpty());
 
-        lld1.removeFirst();
+        ad1.removeFirst();
         // should be empty
-        assertTrue("lld1 should be empty after removal", lld1.isEmpty());
+        assertTrue("ad1 should be empty after removal", ad1.isEmpty());
     }
 }
