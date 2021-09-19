@@ -27,6 +27,9 @@ public class ArrayDequeTest {
         ad1.addLast("back");
         assertEquals(3, ad1.size());
 
+        ad1.addFirst("frontest");
+        assertEquals(4, ad1.size());
+
         System.out.println("Printing out deque: ");
         ad1.printDeque();
     }
@@ -55,11 +58,31 @@ public class ArrayDequeTest {
             ad1.addLast(i);
         }
 
+        System.out.println("Printing out deque: ");
+        ad1.printDeque();
+
         for (int i = 0; i < 7; i++) {
             int value = ad1.get(i);
             assertEquals(i, value);
         }
 
         assertEquals(null, ad1.get(10));
+    }
+
+    @Test
+    /* Add large number of elements to deque; check if order is correct. */
+    public void bigADequeTest() {
+        ArrayDeque<Integer> ad1 = new ArrayDeque<Integer>();
+        for (int i = 0; i < 1000000; i++) {
+            ad1.addLast(i);
+        }
+
+        for (double i = 0; i < 500000; i++) {
+            assertEquals("Should have the same value", i, (double) ad1.removeFirst(), 0.0);
+        }
+
+        for (double i = 999999; i > 500000; i--) {
+            assertEquals("Should have the same value", i, (double) ad1.removeLast(), 0.0);
+        }
     }
 }

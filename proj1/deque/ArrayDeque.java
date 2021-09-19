@@ -30,7 +30,7 @@ public class ArrayDeque <T>{
     /** adds an element to the start of the ArrayDeque */
     public void addFirst(T item){
         if (size == items.length){
-            //RESIZE CALL HERE resize();
+            resize(size*2);
         }
         items[nextFirst] = item;
         nextFirst = (nextFirst - 1) % items.length;
@@ -58,7 +58,7 @@ public class ArrayDeque <T>{
     /** adds an element to the end of the ArrayDeque */
     public void addLast(T item){
         if (size == items.length){
-            //RESIZE CALL HERE resize();
+            resize(size*2);
         }
         items[nextLast] = item;
         nextLast = (nextLast + 1) % items.length;
@@ -96,9 +96,21 @@ public class ArrayDeque <T>{
     /** prints out the elements in the ArrayDeque */
     public void printDeque(){
         for (int i = 0; i < size; i++){
-             T current = items[nextFirst + 1 + i];
+            int newIndex = (nextFirst + i + 1) % items.length;
+            T current = items[newIndex];
             System.out.print(current + " ");
         }
         System.out.println();
+    }
+
+    /** resizes the array to capacity size */
+    private void resize(int capacity){
+        T[] newArray = (T[]) new Object[capacity];
+        int subArraySize = size - nextLast; //size of the sub-array from first element to end of current array
+        System.arraycopy(items, nextLast, newArray, 0, subArraySize); //takes the sub-array or start elements and copies to new array
+        System.arraycopy(items, 0, newArray, subArraySize, nextLast); // takes the sub-array of end elements and copies to new array
+        items = newArray;
+        nextFirst = items.length-1;
+        nextLast = size;
     }
 }
