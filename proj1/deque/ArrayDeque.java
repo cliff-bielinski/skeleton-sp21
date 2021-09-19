@@ -39,13 +39,19 @@ public class ArrayDeque <T>{
 
     /** removes the first element from the ArrayDeque and returns it*/
     public T removeFirst(){
+        if (size == 0){
+            return null;
+        }
+
         int firstIndex = (nextFirst + 1) % items.length;
         T value = items[firstIndex];
         size -= 1;
         nextFirst = firstIndex;
+
         if (items.length > 16 && size < (items.length / 4)){
             // DOWNSIZE CALL HERE downsize();
         }
+
         return value;
     }
 
@@ -61,14 +67,30 @@ public class ArrayDeque <T>{
 
     /** removes an element at the end of the ArrayDeque */
     public T removeLast(){
+        if (size == 0){
+            return null;
+        }
+
         int lastIndex = (nextLast - 1) % items.length;
         T value = items[lastIndex];
         size -= 1;
         nextLast = lastIndex;
+
         if (items.length > 16 && size < (items.length / 4)){
             // DOWNSIZE CALL HERE downsize();
         }
+
         return value;
+    }
+
+    /** returns the value of an element at a given index in the ArrayDeque */
+    public T get(int index){
+        if (index >= size){
+            return null;
+        }
+
+        int newIndex = (nextFirst + index + 1) % items.length;
+        return items[newIndex];
     }
 
     /** prints out the elements in the ArrayDeque */

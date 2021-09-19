@@ -46,4 +46,20 @@ public class ArrayDequeTest {
         // should be empty
         assertTrue("ad1 should be empty after removal", ad1.isEmpty());
     }
+
+    @Test
+    /* Adds items to array, then checks value of items at different indices and compares to expected values */
+    public void addGetTest() {
+        ArrayDeque<Integer> ad1 = new ArrayDeque<>();
+        for (int i = 0; i < 7; i++) {
+            ad1.addLast(i);
+        }
+
+        for (int i = 0; i < 7; i++) {
+            int value = ad1.get(i);
+            assertEquals(i, value);
+        }
+
+        assertEquals(null, ad1.get(10));
+    }
 }
