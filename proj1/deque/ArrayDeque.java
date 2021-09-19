@@ -14,12 +14,45 @@ public class ArrayDeque <T>{
         nextLast = 4;
     }
 
+    /** checks whether the ArrayDeque is empty */
+    public boolean isEmpty(){
+        if (size == 0){
+            return true;
+        }
+        return false;
+    }
+
+    /** returns the current size of the ArrayDeque */
+    public int size(){
+        return size;
+    }
+
     /** adds an element to the start of the ArrayDeque */
     public void addFirst(T item){
         if (size == items.length){
             //RESIZE CALL HERE resize();
         }
         items[nextFirst] = item;
-        nextFirst = (nextFirst - 1) % size;
+        nextFirst = (nextFirst - 1) % items.length;
+        size += 1;
+    }
+
+    /** adds an element to the end of the ArrayDeque */
+    public void addLast(T item){
+        if (size == items.length){
+            //RESIZE CALL HERE resize();
+        }
+        items[nextLast] = item;
+        nextLast = (nextLast + 1) % items.length;
+        size += 1;
+    }
+
+    /** prints out the elements in the ArrayDeque */
+    public void printDeque(){
+        for (int i = 0; i < size; i++){
+             T current = items[nextFirst + 1 + i];
+            System.out.print(current + " ");
+        }
+        System.out.println();
     }
 }
