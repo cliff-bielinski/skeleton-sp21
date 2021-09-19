@@ -89,6 +89,26 @@ public class ArrayDequeTest {
     }
 
     @Test
+    /* Removes items from the array using addFirst, checks for proper removal and resizing of deque */
+    public void removeManyFirst() {
+        ArrayDeque<Integer> ad1 = new ArrayDeque<>();
+
+        for (int i = 0; i < 1000; i++) {
+            ad1.addFirst(i);
+        }
+
+        assertEquals(1000, ad1.size());
+        assertEquals(1024, ad1.containerSize());
+
+        for (int i = 0; i < 1000; i++) {
+            ad1.removeFirst();
+        }
+
+        assertEquals(0, ad1.size());
+        assertEquals(16, ad1.containerSize());
+    }
+
+    @Test
     /* Add large number of elements to deque; check if order is correct. */
     public void bigADequeTest() {
         ArrayDeque<Integer> ad1 = new ArrayDeque<Integer>();

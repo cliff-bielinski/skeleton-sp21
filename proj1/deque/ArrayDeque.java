@@ -27,6 +27,11 @@ public class ArrayDeque <T>{
         return size;
     }
 
+    /** returns the current size of the array containing the deque (debugging only) */
+    public int containerSize() {
+        return items.length;
+    }
+
     /** adds an element to the start of the ArrayDeque */
     public void addFirst(T item){
         if (size == items.length){
@@ -49,7 +54,7 @@ public class ArrayDeque <T>{
         nextFirst = firstIndex;
 
         if (items.length > 16 && size < (items.length / 4)){
-            // DOWNSIZE CALL HERE downsize();
+            resize(items.length / 2);
         }
 
         return value;
@@ -71,13 +76,13 @@ public class ArrayDeque <T>{
             return null;
         }
 
-        int lastIndex = (nextLast - 1) % items.length;
+        int lastIndex = Math.floorMod(nextLast - 1, items.length);
         T value = items[lastIndex];
         size -= 1;
         nextLast = lastIndex;
 
         if (items.length > 16 && size < (items.length / 4)){
-            // DOWNSIZE CALL HERE downsize();
+            resize(items.length / 2);
         }
 
         return value;
@@ -105,12 +110,16 @@ public class ArrayDeque <T>{
 
     /** resizes the array to capacity size */
     private void resize(int capacity){
+        int head = (nextFirst + 1) % items.length;
         T[] newArray = (T[]) new Object[capacity];
-        int subArraySize = size - nextLast; //size of the sub-array from first element to end of current array
-        System.arraycopy(items, nextLast, newArray, 0, subArraySize); //takes the sub-array or start elements and copies to new array
-        System.arraycopy(items, 0, newArray, subArraySize, nextLast); // takes the sub-array of end elements and copies to new array
+
+        for (int i = 0; i < size; i++){
+            int currentIndex = (head + i) % items.length;
+            newArray[i] = items[currentIndex];
+        }
+
         items = newArray;
-        nextFirst = items.length-1;
+        nextFirst = items.length - 1;
         nextLast = size;
     }
 }
