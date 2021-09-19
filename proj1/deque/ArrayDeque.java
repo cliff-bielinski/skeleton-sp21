@@ -33,7 +33,7 @@ public class ArrayDeque <T>{
             resize(size*2);
         }
         items[nextFirst] = item;
-        nextFirst = (nextFirst - 1) % items.length;
+        nextFirst = Math.floorMod(nextFirst - 1, items.length);
         size += 1;
     }
 

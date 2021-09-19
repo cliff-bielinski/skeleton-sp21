@@ -51,22 +51,41 @@ public class ArrayDequeTest {
     }
 
     @Test
-    /* Adds items to array, then checks value of items at different indices and compares to expected values */
-    public void addGetTest() {
+    /* Adds items to array using addLast, then checks value of items at different indices and compares to expected values */
+    public void addLastGetTest() {
         ArrayDeque<Integer> ad1 = new ArrayDeque<>();
-        for (int i = 0; i < 7; i++) {
+        for (int i = 0; i < 10; i++) {
             ad1.addLast(i);
         }
 
         System.out.println("Printing out deque: ");
         ad1.printDeque();
 
-        for (int i = 0; i < 7; i++) {
+        for (int i = 0; i < 10; i++) {
             int value = ad1.get(i);
             assertEquals(i, value);
         }
 
-        assertEquals(null, ad1.get(10));
+        assertEquals(null, ad1.get(20));
+    }
+
+    @Test
+    /* Adds items to array using addFirst, then checks value of items at different indices and compares to expected values */
+    public void addFirstGetTest() {
+        ArrayDeque<Integer> ad1 = new ArrayDeque<>();
+        for (int i = 0; i < 10; i++) {
+            ad1.addFirst(i);
+        }
+
+        System.out.println("Printing out deque: ");
+        ad1.printDeque();
+
+        for (int i = 0; i < 10; i++) {
+            int value = ad1.get(i);
+            assertEquals(9-i, value);
+        }
+
+        assertEquals(null, ad1.get(20));
     }
 
     @Test
