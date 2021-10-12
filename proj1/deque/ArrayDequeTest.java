@@ -124,4 +124,41 @@ public class ArrayDequeTest {
             assertEquals("Should have the same value", i, (double) ad1.removeLast(), 0.0);
         }
     }
+
+    @Test
+    /* Iterates through an arraydeque using an iterator object */
+    public void iteratorTest() {
+        ArrayDeque<Integer> ad1 = new ArrayDeque<Integer>();
+        for (int i = 1; i < 100; i*=2) {
+            ad1.addLast(i);
+        }
+        int test = 1;
+        for (int i : ad1){
+            assertEquals(i, test);
+            test *= 2;
+        }
+    }
+
+    @Test
+    /* tests the equal functionality to see if comparator is an equivalent Deque */
+    public void equalsTest(){
+        ArrayDeque<Integer> ad1 = new ArrayDeque<Integer>();
+        ArrayDeque<Integer> ad2 = new ArrayDeque<Integer>();
+        ArrayDeque<Integer> ad3 = new ArrayDeque<Integer>();
+        ArrayDeque<Integer> ad4 = new ArrayDeque<Integer>();
+
+        ad1.addFirst(1);
+        ad1.addFirst(2);
+        ad1.addFirst(3);
+        ad2.addFirst(1);
+        ad2.addFirst(2);
+        ad2.addFirst(3);
+        ad3.addFirst(4);
+        ad3.addFirst(5);
+        ad3.addFirst(6);
+
+        assertTrue(ad1.equals(ad2));
+        assertFalse(ad1.equals(ad3));
+        assertFalse(ad1.equals(ad4));
+    }
 }

@@ -122,8 +122,8 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T>{
         return recursiveHelper(node.next, index-1);
     }
 
-    @Override
     /* returns a linked list iterator object */
+    @Override
     public Iterator<T> iterator() {
         return new LinkedListIterator();
     }
@@ -149,5 +149,19 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T>{
         }
     }
 
+    /* returns true if comparison object is also a deque with the same ordered values */
+    @Override
+    public boolean equals(Object o){
+        if (!(o instanceof Deque) || size != ((Deque) o).size()) {
+            return false;
+        }
+
+        for (int i = 0; i < size; i++){
+            if (this.get(i) != ((Deque) o).get(i)){
+                return false;
+            }
+        }
+        return true;
+    }
 
 }
