@@ -133,4 +133,17 @@ public class LinkedListDequeTest {
         assertEquals(null, lld1.get(10));
         assertEquals(null, lld1.getRecursive(10));
     }
+
+    @Test
+    /* Iterates through a list using an iterator object */
+    public void iteratorTest() {
+        LinkedListDeque<Integer> lld1 = new LinkedListDeque<Integer>();
+        for (int i = 1; i < 100; i *= 2) {
+            lld1.addLast(i);
+        }
+
+        for (int i : lld1){
+            System.out.println(i);
+        }
+    }
 }
