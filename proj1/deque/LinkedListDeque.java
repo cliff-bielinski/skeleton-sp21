@@ -2,7 +2,7 @@ package deque;
 
 import java.util.Iterator;
 
-public class LinkedListDeque<T> implements Iterable<T>{
+public class LinkedListDeque<T> implements Deque<T>, Iterable<T>{
 
     /**Node object which contains a value and a pointer to the next Node object */
     public class Node{
@@ -30,19 +30,13 @@ public class LinkedListDeque<T> implements Iterable<T>{
     }
 
     /** returns the size of the list */
+    @Override
     public int size(){
         return size;
     }
 
-    /** returns true if the list is empty*/
-    public boolean isEmpty(){
-        if (size == 0){
-            return true;
-        }
-        return false;
-    }
-
     /** adds a new Node to the list in the first position */
+    @Override
     public void addFirst(T item){
         Node oldFirst = sentinel.next;
         Node newNode = new Node(item, oldFirst, sentinel);
@@ -52,6 +46,7 @@ public class LinkedListDeque<T> implements Iterable<T>{
     }
 
     /** adds a new Node to the list in the last position*/
+    @Override
     public void addLast(T item){
         Node oldLast = sentinel.previous;
         Node newNode = new Node(item, sentinel, oldLast);
@@ -61,6 +56,7 @@ public class LinkedListDeque<T> implements Iterable<T>{
     }
 
     /** prints the values of the Nodes currently in the list */
+    @Override
     public void printDeque(){
         Node current = sentinel.next;
         while (current != sentinel){
@@ -71,6 +67,7 @@ public class LinkedListDeque<T> implements Iterable<T>{
     }
 
     /** removes the first Node and returns it */
+    @Override
     public T removeFirst(){
         Node first = sentinel.next;
         if (first == sentinel){
@@ -83,6 +80,7 @@ public class LinkedListDeque<T> implements Iterable<T>{
     }
 
     /** removes the last Node and returns it */
+    @Override
     public T removeLast(){
         Node last = sentinel.previous;
         if (last == sentinel){
@@ -95,6 +93,7 @@ public class LinkedListDeque<T> implements Iterable<T>{
     }
 
     /** returns the value of Node at given index using iteration*/
+    @Override
     public T get(int index){
         if (index >= size){
             return null;
@@ -145,7 +144,10 @@ public class LinkedListDeque<T> implements Iterable<T>{
         public T next(){
             T returnItem = current.value;
             current = current.next;
+            pos += 1;
             return returnItem;
         }
     }
+
+
 }

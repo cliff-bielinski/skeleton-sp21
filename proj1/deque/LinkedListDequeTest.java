@@ -141,9 +141,10 @@ public class LinkedListDequeTest {
         for (int i = 1; i < 100; i *= 2) {
             lld1.addLast(i);
         }
-
+        int test = 1;
         for (int i : lld1){
-            System.out.println(i);
+            assertEquals(i, test);
+            test *= 2;
         }
     }
 }
